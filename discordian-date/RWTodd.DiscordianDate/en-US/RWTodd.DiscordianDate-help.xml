@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-DiscordianDate</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DiscordianDate</command:noun>
+      <maml:description>
+        <maml:para>Converts dates to the Discordian calendar.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The command supports all options present in the UNIX `ddate` utility.  With no arguments, it formats the current date in a default, friendly format.  Custom format strings can be provided with the `-Format` parameter. Though the default display is the formatted string, this utility actually returns a Powershell object with properties for various aspects of the Discordian date. I'd like to see the venerable `ddate` utility do that!</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-DiscordianDate</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Date</maml:name>
+          <maml:description>
+            <maml:para>The Gregorian-calendar date to convert to Discordian.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Today's Date</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Format</maml:name>
+          <maml:description>
+            <maml:para>The format string. When a format is not given, a default one is provided by the tool.  The flags allowed in the format string are the following:</maml:para>
+            <maml:para>%% Outputs a literal percent sign.</maml:para>
+            <maml:para>%n Outputs a newline.</maml:para>
+            <maml:para>%t Outputs a tab.</maml:para>
+            <maml:para>%A Outputs the Discordian weekday.</maml:para>
+            <maml:para>%a Outputs an abbreviation for the Discordian weekday.</maml:para>
+            <maml:para>%B Outputs the Discordian Season.</maml:para>
+            <maml:para>%b Outputs an abbreviation for the Discordian Season.</maml:para>
+            <maml:para>%d Outputs the day of the season.</maml:para>
+            <maml:para>%e Outputs the ordinal-number version of the day (e.g., `3rd` `24th`)</maml:para>
+            <maml:para>%H Outputs the name of the current Holy Day, if any.</maml:para>
+            <maml:para>%X Outputs the number of days left until X-Day</maml:para>
+            <maml:para>%Y Outputs the Discordian year.</maml:para>
+            <maml:para>%. Outputs a random exclamation.</maml:para>
+            <maml:para>%N Removes the rest of the format string, unless it is a Holy Day.</maml:para>
+            <maml:para>%{ ... %}  Outputs "St. Tib's Day" on St. Tib's Day, and removes everything between the brackets. Otherwise, formats everything between the brackets.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Relative</maml:name>
+          <maml:description>
+            <maml:para>Adjust the date by the given number of days (can be positive or negative).</maml:para>
+            <maml:para>This is a useful shorthand when you want to see 'tomorrow' or 'two days ago'.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-DiscordianDate</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Date</maml:name>
+          <maml:description>
+            <maml:para>The Gregorian-calendar date to convert to Discordian.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Today's Date</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Raw</maml:name>
+          <maml:description>
+            <maml:para>This switch indicates that a formatted string should not be added as a NoteProperty to the returned object.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Relative</maml:name>
+          <maml:description>
+            <maml:para>Adjust the date by the given number of days (can be positive or negative).</maml:para>
+            <maml:para>This is a useful shorthand when you want to see 'tomorrow' or 'two days ago'.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Date</maml:name>
+        <maml:description>
+          <maml:para>The Gregorian-calendar date to convert to Discordian.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Today's Date</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Format</maml:name>
+        <maml:description>
+          <maml:para>The format string. When a format is not given, a default one is provided by the tool.  The flags allowed in the format string are the following:</maml:para>
+          <maml:para>%% Outputs a literal percent sign.</maml:para>
+          <maml:para>%n Outputs a newline.</maml:para>
+          <maml:para>%t Outputs a tab.</maml:para>
+          <maml:para>%A Outputs the Discordian weekday.</maml:para>
+          <maml:para>%a Outputs an abbreviation for the Discordian weekday.</maml:para>
+          <maml:para>%B Outputs the Discordian Season.</maml:para>
+          <maml:para>%b Outputs an abbreviation for the Discordian Season.</maml:para>
+          <maml:para>%d Outputs the day of the season.</maml:para>
+          <maml:para>%e Outputs the ordinal-number version of the day (e.g., `3rd` `24th`)</maml:para>
+          <maml:para>%H Outputs the name of the current Holy Day, if any.</maml:para>
+          <maml:para>%X Outputs the number of days left until X-Day</maml:para>
+          <maml:para>%Y Outputs the Discordian year.</maml:para>
+          <maml:para>%. Outputs a random exclamation.</maml:para>
+          <maml:para>%N Removes the rest of the format string, unless it is a Holy Day.</maml:para>
+          <maml:para>%{ ... %}  Outputs "St. Tib's Day" on St. Tib's Day, and removes everything between the brackets. Otherwise, formats everything between the brackets.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Raw</maml:name>
+        <maml:description>
+          <maml:para>This switch indicates that a formatted string should not be added as a NoteProperty to the returned object.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Relative</maml:name>
+        <maml:description>
+          <maml:para>Adjust the date by the given number of days (can be positive or negative).</maml:para>
+          <maml:para>This is a useful shorthand when you want to see 'tomorrow' or 'two days ago'.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RWTodd.Discordian.Date</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>An object with properties for various facets of the discordian date.</maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-DiscordianDate # assuming it is 2020-2-21
+
+Today is Boomtime, the 52nd day of Chaos in the YOLD 3186</dev:code>
+        <dev:remarks>
+          <maml:para>The current date is converted to a discordian date and described.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-DiscordianDate 2020-2-19 -Relative 2
+
+Boomtime, Chaos 52, 3186 YOLD</dev:code>
+        <dev:remarks>
+          <maml:para>The given date is adjusted by 2 days and converted to a discordian date and described.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; 11:52 AM$ Get-DiscordianDate 2020-2-19 -Format "It is %H and %X til the big day!" 
+
+It is Chaoflux and 2,425,712 til the big day!</dev:code>
+        <dev:remarks>
+          <maml:para>A custom format is given.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; 11:52 AM$ Get-DiscordianDate 2020-2-19 -Raw
+
+3186-Chs-50</dev:code>
+        <dev:remarks>
+          <maml:para>No formatting is done at all.  A default display is provided.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; 11:52 AM$ Get-DiscordianDate 2020-2-19 | Format-List
+
+Formatted     : Setting Orange, Chaos 50, 3186 YOLD
+Year          : 3186
+DaysTilXDay   : 2425712
+IsTibs        : False
+Season        : Chaos
+SeasonAbbrev  : Chs
+Weekday       : Setting Orange
+WeekdayAbbrev : SO
+DayOfSeason   : 50
+HolyDay       : Chaoflux
+IsHolyDay     : True</dev:code>
+        <dev:remarks>
+          <maml:para>The returned object has many useful properties.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Wikipedia Entry for Discordian Calendar</maml:linkText>
+        <maml:uri>https://en.wikipedia.org/wiki/Discordian_calendar</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+</helpItems>
