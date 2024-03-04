@@ -2,42 +2,50 @@ namespace RWTodd.Romanized.Test;
 
 public class HebrewTests
 {
-    [Fact]
-    public void TestABG()
+    [Theory]
+    [InlineData("A", "\u05d0")]
+    [InlineData("B", "\u05d1")]
+    [InlineData("G", "\u05d2")]
+    [InlineData("ABG", "\u05d0\u05d1\u05d2")]
+    public void TestABG(string input, string expected)
     {
-        Assert.Equal("\u05d0", Hebrew.Convert("A"));
-        Assert.Equal("\u05d1",Hebrew.Convert("B"));
-        Assert.Equal("\u05d2",Hebrew.Convert("G"));
-        Assert.Equal("אבג",Hebrew.Convert("ABG"));
+        string result = Hebrew.Convert(input);
+        Assert.Equal(expected, result);
     }
 
-    [Fact]
-    public void TestAutoFinals()
+    [Theory]
+    [InlineData("AN BNM", "אן בנם")]
+    [InlineData("ANf BNiMf", "אן בנם")]
+    public void TestAutoFinals(string input, string expected)
     {
-        Assert.Equal("אן בנם", Hebrew.Convert("AN BNM"));
-        Assert.Equal("אן בנם", Hebrew.Convert("ANf BNiMf"));
+        string result = Hebrew.Convert(input);
+        Assert.Equal(expected, result);
     }
 
-    [Fact]
-    public void TestNiqqud()
+    [Theory]
+    [InlineData("B3AM", "\u05d1\u05b6\u05d0\u05dd")]
+    [InlineData("B3*AMi*;3", "\u05d1\u05b6\u05bc\u05d0\u05de\u05bc\u05b1")]
+    public void TestNiqqud(string input, string expected)
     {
-        Assert.Equal("\u05d1\u05b6\u05d0\u05dd", Hebrew.Convert("B3AM"));
-        Assert.Equal("\u05d1\u05b6\u05bc\u05d0\u05de\u05bc\u05b1", Hebrew.Convert("B3*AMi*;3"));
+        string result = Hebrew.Convert(input);
+        Assert.Equal(expected, result);
     }
 
-    [Fact]
-    public void TestSefirot()
-    {        
-        Assert.Equal("כתר",Hebrew.Convert("KThR"));
-        Assert.Equal("חכמה",Hebrew.Convert("ChKMH"));
-        Assert.Equal("בינה",Hebrew.Convert("BINH"));
-        Assert.Equal("דעת",Hebrew.Convert("DOTh"));
-        Assert.Equal("חסד",Hebrew.Convert("ChSD"));
-        Assert.Equal("גבורה",Hebrew.Convert("GBVRH"));
-        Assert.Equal("תפארת",Hebrew.Convert("ThPARTh"));
-        Assert.Equal("נצח",Hebrew.Convert("NTzCh"));
-        Assert.Equal("הוד",Hebrew.Convert("HVD"));
-        Assert.Equal("יסוד",Hebrew.Convert("ISVD"));
-        Assert.Equal("מלכות",Hebrew.Convert("MLKVTh"));
+    [Theory]
+    [InlineData("KThR", "כתר")]
+    [InlineData("ChKMH", "חכמה")]
+    [InlineData("BINH", "בינה")]
+    [InlineData("DOTh", "דעת")]
+    [InlineData("ChSD", "חסד")]
+    [InlineData("GBVRH", "גבורה")]
+    [InlineData("ThPARTh", "תפארת")]
+    [InlineData("NTzCh", "נצח")]
+    [InlineData("HVD", "הוד")]
+    [InlineData("ISVD", "יסוד")]
+    [InlineData("MLKVTh", "מלכות")]
+    public void TestSefirot(string input, string expected)
+    {
+        string result = Hebrew.Convert(input);
+        Assert.Equal(expected, result);
     }
 }
