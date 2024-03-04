@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RWTodd.DiscordianDate", "src\RWTodd.DiscordianDate.csproj", "{0545CF9B-21E3-4C2A-AD42-803997C85848}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RWTodd.DiscDate.Test", "test\RWTodd.DiscDate.Test.csproj", "{C2BE9803-6C9B-4C6F-A3B3-E11247C9C063}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{0545CF9B-21E3-4C2A-AD42-803997C85848}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0545CF9B-21E3-4C2A-AD42-803997C85848}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0545CF9B-21E3-4C2A-AD42-803997C85848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2BE9803-6C9B-4C6F-A3B3-E11247C9C063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2BE9803-6C9B-4C6F-A3B3-E11247C9C063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2BE9803-6C9B-4C6F-A3B3-E11247C9C063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2BE9803-6C9B-4C6F-A3B3-E11247C9C063}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
