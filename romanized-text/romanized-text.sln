@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RWTodd.RomanizedText", "src\RWTodd.RomanizedText.csproj", "{9ED9BDA4-5C3D-4CB5-BC45-314C6F487970}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RWTodd.Romanized.Test", "test\RWTodd.Romanized.Test.csproj", "{222DF52A-9BDB-428E-8F27-6B748B88BC45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9ED9BDA4-5C3D-4CB5-BC45-314C6F487970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ED9BDA4-5C3D-4CB5-BC45-314C6F487970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ED9BDA4-5C3D-4CB5-BC45-314C6F487970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ED9BDA4-5C3D-4CB5-BC45-314C6F487970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{222DF52A-9BDB-428E-8F27-6B748B88BC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{222DF52A-9BDB-428E-8F27-6B748B88BC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{222DF52A-9BDB-428E-8F27-6B748B88BC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{222DF52A-9BDB-428E-8F27-6B748B88BC45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F22A2B8-9C92-4A36-87DE-13ECA3039C57}
+	EndGlobalSection
+EndGlobal
