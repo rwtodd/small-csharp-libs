@@ -28,7 +28,7 @@ function ConvertFrom-RomanizedText {
             $result = ($result.ToCharArray() | ForEach-Object { "&#x{0:x4};" -f [int]$_ }) -join '' 
         }
         if ($WikiText) {
-            $result = "{{Hebrew Text|$result}}"
+            $result = "{{hebrew text|$result}}"
         }
         Write-Output $result
     }

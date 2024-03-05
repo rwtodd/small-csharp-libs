@@ -76,6 +76,34 @@ public static partial class Greek
                 );
     }
 
+    /// <summary>
+    /// Convert romanized text to unicode greek.
+    /// </summary>
+    /// <remarks><para>Letters: 
+    /// *A/A  alpha         *B/B  beta
+    /// *C/C  xi            *D/D  delta
+    /// *E/E  epsilon       *F/F  phi
+    /// *G/G  gamma         *H/H  eta
+    /// *I/I  iota          *K/K  kappa
+    /// *L/L  lambda        *M/M  mu
+    /// *N/N  nu            *O/O  omicron
+    /// *P/P  pi            *Q/Q  theta
+    /// *R/R  rho           *S/S  sigma
+    /// S1    medial sigma  S2  final sigma
+    /// *S3/S3 lunate sigma *T/T  tau
+    /// *U/U  upsilon       *V/V  digamma
+    /// *W/W  omega         *X/X  Chi
+    /// *Y/Y  Psi           *Z/Z  Zeta</para>
+    /// <para>Accents:
+    /// )  smooth breathing (  rough breathing
+    /// /  acute            =  circumflex
+    /// \\  grave            +  diaeresis
+    /// |  iota subscript   &  macron
+    /// '  breve            ?  dot below
+    /// </para>
+    /// </remarks>
+    /// <param name="romanized">the input string of romanized Greek text</param>
+    /// <returns>a unicode string of Greek text</returns>
     public static string Convert(string romanized)
     {
         var finalized = SIGMA_FINAL_RX().Replace(romanized, "S2");

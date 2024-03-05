@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>ConvertFrom-RomanizedText</command:name>
+      <command:verb>ConvertFrom</command:verb>
+      <command:noun>RomanizedText</command:noun>
+      <maml:description>
+        <maml:para>Convert romanized text in Hebrew or Greek to the equivalent unicode.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>It used to be common to encode non-roman letters into roman letters for ease of printing and understanding. As a result a lot of text contains romanized versions of Hebrew and Greek (amond others).  This cmdlet converts specific flavors of romanized Hebrew and Greek to unicode.  See the documentation on the  `-Greek` and `-Hebrew` parameters for details on the dialect supported.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertFrom-RomanizedText</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Text</maml:name>
+          <maml:description>
+            <maml:para>The text to convert to unicode.  See the `-Greek` and `-Hebrew` parameters for more on the style of romanization supported.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Greek</maml:name>
+          <maml:description>
+            <maml:para>Specify that the romanized text is in Greek.</maml:para>
+            <maml:para>Here is the supported romanization:</maml:para>
+            <maml:para>Letters:</maml:para>
+            <maml:para></maml:para>
+            <maml:para>*A/A  alpha         *B/B  beta</maml:para>
+            <maml:para>    *C/C  xi            *D/D  delta</maml:para>
+            <maml:para>    *E/E  epsilon       *F/F  phi</maml:para>
+            <maml:para>    *G/G  gamma         *H/H  eta</maml:para>
+            <maml:para>    *I/I  iota          *K/K  kappa</maml:para>
+            <maml:para>    *L/L  lambda        *M/M  mu</maml:para>
+            <maml:para>    *N/N  nu            *O/O  omicron</maml:para>
+            <maml:para>    *P/P  pi            *Q/Q  theta</maml:para>
+            <maml:para>    *R/R  rho           *S/S  sigma</maml:para>
+            <maml:para>    S1    medial sigma  S2  final sigma</maml:para>
+            <maml:para>    *S3/S3 lunate sigma *T/T  tau</maml:para>
+            <maml:para>    *U/U  upsilon       *V/V  digamma</maml:para>
+            <maml:para>    *W/W  omega         *X/X  Chi</maml:para>
+            <maml:para>    *Y/Y  Psi           *Z/Z  Zeta</maml:para>
+            <maml:para></maml:para>
+            <maml:para>Accents:</maml:para>
+            <maml:para></maml:para>
+            <maml:para>)  smooth breathing (  rough breathing</maml:para>
+            <maml:para>    /  acute            =  circumflex</maml:para>
+            <maml:para>    \\  grave            +  diaeresis</maml:para>
+            <maml:para>    |  iota subscript   &amp;  macron</maml:para>
+            <maml:para>    '  breve            ?  dot below</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Html</maml:name>
+          <maml:description>
+            <maml:para>Request output as HTML entities, rather than unicode characters.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>ConvertFrom-RomanizedText</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Text</maml:name>
+          <maml:description>
+            <maml:para>The text to convert to unicode.  See the `-Greek` and `-Hebrew` parameters for more on the style of romanization supported.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Hebrew</maml:name>
+          <maml:description>
+            <maml:para>Specify that the romanized text is in Hebrew.  This is the default if no option is given.</maml:para>
+            <maml:para>Here is the supported romanization:</maml:para>
+            <maml:para>Letters:</maml:para>
+            <maml:para></maml:para>
+            <maml:para>A  = aleph   B  = beth    G  = gimel    D  = dalet</maml:para>
+            <maml:para>    H  = heh     V  = vav     Z  = zayin    Ch = chet</maml:para>
+            <maml:para>    T  = teth    I  = yod     K  = kaf      L  = lamed</maml:para>
+            <maml:para>    M  = mem     N  = nun     S  = samekh   O  = ayin</maml:para>
+            <maml:para>    P  = peh     Tz = tzaddi  Q  = qoph     R  = resh</maml:para>
+            <maml:para>    Sh = shin    Th = tav</maml:para>
+            <maml:para></maml:para>
+            <maml:para>Ligatures:</maml:para>
+            <maml:para></maml:para>
+            <maml:para>Ii = yod-yod   Vi = vav-yod     Vv = vav-vav</maml:para>
+            <maml:para></maml:para>
+            <maml:para>Niqqud:</maml:para>
+            <maml:para></maml:para>
+            <maml:para>;  = Sh'va                *  = Dagesh</maml:para>
+            <maml:para>    \\ =  Kubutz              `  = Holam</maml:para>
+            <maml:para>    1  = Hiriq                2  = Zeire                </maml:para>
+            <maml:para>    3  = Segol                ;3 = Reduced Segol        </maml:para>
+            <maml:para>    _  = Patach               ;_ = Reduced Patach       </maml:para>
+            <maml:para>    7  = Kamatz               ;7 = Reduced Kamatz       </maml:para>
+            <maml:para>    Shl = Shin dot left       Shr = Shin dot right</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Html</maml:name>
+          <maml:description>
+            <maml:para>Request output as HTML entities, rather than unicode characters.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>WikiText</maml:name>
+          <maml:description>
+            <maml:para>For Hebrew, my mediawiki has a template that specifies a font family and size for Hebrew letters. This option wraps the output in that mediawiki template.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Greek</maml:name>
+        <maml:description>
+          <maml:para>Specify that the romanized text is in Greek.</maml:para>
+          <maml:para>Here is the supported romanization:</maml:para>
+          <maml:para>Letters:</maml:para>
+          <maml:para></maml:para>
+          <maml:para>*A/A  alpha         *B/B  beta</maml:para>
+          <maml:para>    *C/C  xi            *D/D  delta</maml:para>
+          <maml:para>    *E/E  epsilon       *F/F  phi</maml:para>
+          <maml:para>    *G/G  gamma         *H/H  eta</maml:para>
+          <maml:para>    *I/I  iota          *K/K  kappa</maml:para>
+          <maml:para>    *L/L  lambda        *M/M  mu</maml:para>
+          <maml:para>    *N/N  nu            *O/O  omicron</maml:para>
+          <maml:para>    *P/P  pi            *Q/Q  theta</maml:para>
+          <maml:para>    *R/R  rho           *S/S  sigma</maml:para>
+          <maml:para>    S1    medial sigma  S2  final sigma</maml:para>
+          <maml:para>    *S3/S3 lunate sigma *T/T  tau</maml:para>
+          <maml:para>    *U/U  upsilon       *V/V  digamma</maml:para>
+          <maml:para>    *W/W  omega         *X/X  Chi</maml:para>
+          <maml:para>    *Y/Y  Psi           *Z/Z  Zeta</maml:para>
+          <maml:para></maml:para>
+          <maml:para>Accents:</maml:para>
+          <maml:para></maml:para>
+          <maml:para>)  smooth breathing (  rough breathing</maml:para>
+          <maml:para>    /  acute            =  circumflex</maml:para>
+          <maml:para>    \\  grave            +  diaeresis</maml:para>
+          <maml:para>    |  iota subscript   &amp;  macron</maml:para>
+          <maml:para>    '  breve            ?  dot below</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Hebrew</maml:name>
+        <maml:description>
+          <maml:para>Specify that the romanized text is in Hebrew.  This is the default if no option is given.</maml:para>
+          <maml:para>Here is the supported romanization:</maml:para>
+          <maml:para>Letters:</maml:para>
+          <maml:para></maml:para>
+          <maml:para>A  = aleph   B  = beth    G  = gimel    D  = dalet</maml:para>
+          <maml:para>    H  = heh     V  = vav     Z  = zayin    Ch = chet</maml:para>
+          <maml:para>    T  = teth    I  = yod     K  = kaf      L  = lamed</maml:para>
+          <maml:para>    M  = mem     N  = nun     S  = samekh   O  = ayin</maml:para>
+          <maml:para>    P  = peh     Tz = tzaddi  Q  = qoph     R  = resh</maml:para>
+          <maml:para>    Sh = shin    Th = tav</maml:para>
+          <maml:para></maml:para>
+          <maml:para>Ligatures:</maml:para>
+          <maml:para></maml:para>
+          <maml:para>Ii = yod-yod   Vi = vav-yod     Vv = vav-vav</maml:para>
+          <maml:para></maml:para>
+          <maml:para>Niqqud:</maml:para>
+          <maml:para></maml:para>
+          <maml:para>;  = Sh'va                *  = Dagesh</maml:para>
+          <maml:para>    \\ =  Kubutz              `  = Holam</maml:para>
+          <maml:para>    1  = Hiriq                2  = Zeire                </maml:para>
+          <maml:para>    3  = Segol                ;3 = Reduced Segol        </maml:para>
+          <maml:para>    _  = Patach               ;_ = Reduced Patach       </maml:para>
+          <maml:para>    7  = Kamatz               ;7 = Reduced Kamatz       </maml:para>
+          <maml:para>    Shl = Shin dot left       Shr = Shin dot right</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Html</maml:name>
+        <maml:description>
+          <maml:para>Request output as HTML entities, rather than unicode characters.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Text</maml:name>
+        <maml:description>
+          <maml:para>The text to convert to unicode.  See the `-Greek` and `-Hebrew` parameters for more on the style of romanization supported.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>WikiText</maml:name>
+        <maml:description>
+          <maml:para>For Hebrew, my mediawiki has a template that specifies a font family and size for Hebrew letters. This option wraps the output in that mediawiki template.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>The romanized text you want to convert.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>The unicode text.</maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ConvertFrom-RomanizedText -Greek THELEMA
+τηελεμα</dev:code>
+        <dev:remarks>
+          <maml:para>You put romanized text in, you get unicode text out.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ConvertFrom-RomanizedText -Greek -Html THELEMA
+&amp;#x03c4;&amp;#x03b7;&amp;#x03b5;&amp;#x03bb;&amp;#x03b5;&amp;#x03bc;&amp;#x03b1;</dev:code>
+        <dev:remarks>
+          <maml:para>You can request the results in HTML entities if you like... this is especially conventient for right-to-left Hebrew, since the entities are still written left-to-right.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+</helpItems>

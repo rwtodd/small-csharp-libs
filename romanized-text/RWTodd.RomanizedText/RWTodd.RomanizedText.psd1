@@ -30,7 +30,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) Richard Todd. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Converts romanized text to unicode, for particular Hebrew and Greek romanizations'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '7.4'
