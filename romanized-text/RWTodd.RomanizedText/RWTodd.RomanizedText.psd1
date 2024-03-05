@@ -12,7 +12,7 @@
 RootModule = 'RWTodd.RomanizedText.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0'
+ModuleVersion = '1.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -107,7 +107,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '1.0: Initial Release'
+        ReleaseNotes = '1.1: Only make HTML Entities on char codes above 127'
 
         # Prerelease string of this module
         # Prerelease = ''

@@ -25,7 +25,11 @@ function ConvertFrom-RomanizedText {
             }
         }       
         if ($Html) {
-            $result = ($result.ToCharArray() | ForEach-Object { "&#x{0:x4};" -f [int]$_ }) -join '' 
+            $result = $(
+                switch($result.ToCharArray()) {
+                    { [int]$_ -lt 128 }     { $_ }
+                    default                 { "&#x{0:x4};" -f [int]$_ }
+                }) -join ''
         }
         if ($WikiText) {
             $result = "{{hebrew text|$result}}"
