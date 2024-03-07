@@ -7,8 +7,8 @@ public class UnitTest1
     {
         var b = new Book("Furthest Places, The (M. Rosas)");
         b.ShortTitle = "Furthest Places";
-        var p1 = new MutablePage(b,"First Chapter, The") { DisplayName = "The First Chapter", ShortName="First Chap."};
-        var p2 = new MutablePage(b,"Second Chapter, The") { DisplayName = "The Second Chapter", ShortName="Second Chap."};
+        var p1 = new Page(b,$"First Chapter, The ({b.ShortTitle})") { DisplayName = "The First Chapter", ShortName="First Chap."};
+        var p2 = new Page(b,$"Second Chapter, The ({b.ShortTitle})") { DisplayName = "The Second Chapter", ShortName="Second Chap."};
         
         b.AddPage(p1);
         b.AddPage(p2);

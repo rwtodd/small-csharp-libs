@@ -29,7 +29,7 @@ function New-WikiBook {
         if ($NavPage) { $wb.NavPage = $NavPage }
         $wb | Add-Member -MemberType ScriptMethod -Name "NewPage" -Value { 
             param($pgUrl)
-            [RWTodd.WikiBook.MutablePage]::new($this, $pgUrl)
+            [RWTodd.WikiBook.Page]::new($this, $pgUrl)
         }
         return $wb
     } else {
@@ -90,9 +90,11 @@ function New-WikiBook {
                 }
                 # if there is no url, it must be the remaining pgText...
                 if($pgUrl -eq '') { $pgUrl = $pgText }
-
+                # add the book's shorttitle as a suffix
+                $pgUrl = "{0} ({1})" -f $pgUrl,$wb.ShortTitle
+                
                 Write-Verbose "Adding page at URL <$pgUrl>"
-                $pg = [RWTodd.WikiBook.MutablePage]::new($wb, $pgUrl)
+                $pg = [RWTodd.WikiBook.Page]::new($wb, $pgUrl)
                 if($pgShort) { $pg.ShortName = $pgShort }
                 if($pgText) { $pg.DisplayName = $pgText }
                 if($pgListMarks) { $pg.TOCListMarkers = $pgListMarks }

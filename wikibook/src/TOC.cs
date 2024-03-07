@@ -2,53 +2,102 @@
 
 namespace RWTodd.WikiBook;
 
+internal interface IContentsEntry
+{
+    string MakeTOCListEntry();
+}
+
+internal class ContentsRawText(string text) : IContentsEntry
+{
+    public string MakeTOCListEntry() => text;
+}
+
 /// <summary>
 /// A Page in a WikiBook
 /// </summary>
-public class Page
+public class Page(Book book, string url) : IContentsEntry
 {
+    protected string? _displayName;
+    protected string? _shortName;
+    protected string? _tocListMarkers;
+
     public Page? PreviousPage { get; internal set; }
     public Page? NextPage { get; internal set; }
 
-    protected readonly Book book;
-    protected string url;
-    protected string? defaultDisplayName;
-    protected string? defaultShortName;
-    protected string? tocListMarkers;
-    protected bool isCategory = false;
+    public Book Book => book;
 
-    public Page(Book book, string urlName, bool addSuffix = true)
+    public string URL => url;
+    public string DisplayName 
     {
-        this.book = book;
-        url = addSuffix ? urlName + (book.PageSuffix ?? "") : urlName;
+        get => _displayName ?? URL;
+        set { _displayName = value; }
     }
+
+    public virtual string ShortName
+    {
+        get
+        {
+            string candidate = _shortName ?? DisplayName;
+            if(candidate.Length > 20)
+            {
+                if(candidate.StartsWith("A ")) 
+                {
+                    candidate = candidate[2..];
+                } else if(candidate.StartsWith("An "))
+                {
+                    candidate = candidate[3..];
+                } else if(candidate.StartsWith("The "))
+                {
+                    candidate = candidate[4..];
+                }
+                if(candidate.Length > 20)
+                {
+                    candidate = candidate[..18] + "&hellip;";
+                }
+            }
+            return candidate;
+        }
+        set
+        {
+            _shortName = value;
+        }
+    }
+
+    public virtual string TOCListMarkers
+    {
+        get => _tocListMarkers ?? "* ";
+        set { _tocListMarkers = value; }
+    }
+
+    public bool IsCategory { get; set; } = false;
+    
+    public virtual string FileName => $"{URL}.wikitext".Replace(' ', '_');
 
     public virtual string MakeLink(string? text = null)
     {
-        string linktxt = text ?? defaultDisplayName ?? url;
-        string cat = isCategory ? ":Category:" : string.Empty;
+        string linktxt = text ?? DisplayName;
+        string cat = IsCategory ? ":Category:" : string.Empty;
         var start = $"[[{cat}{url}";
         return start + ((string.IsNullOrWhiteSpace(linktxt)) ? "]]" : $"|{linktxt}]]");
     }
 
-    public virtual string MakeTOCListLink() =>
-        $"{tocListMarkers ?? "* "}{MakeLink()}";
+    public virtual string MakeTOCListEntry() =>
+        $"{TOCListMarkers}{MakeLink()}";
     
     public virtual string MakeShortLink() =>
-        MakeLink(defaultShortName ?? defaultDisplayName ?? url);
+        MakeLink(ShortName);
 
-    public virtual string FileName => $"{url}.wikitext".Replace(' ', '_');
 
     public virtual string MakeCategoryMarker()
     {
-        if(!isCategory)
+        if(!IsCategory)
             throw new InvalidOperationException("Category marker requested for non-category!");
-        return $"[[Category:{url}]]";
+        return $"[[Category:{URL}]]";
     }
 
     public virtual string GeneratePageTemplate() =>
         $@"{{{{{book.NavPage}
-|1 = {book.NavTitle ?? book.Title ?? "Unknown"}
+|1 = {book.NavTitle}
 |2 = {book.TOC.MakeLink()}
 |3 = {(PreviousPage ?? book.TOC).MakeShortLink()}
 |4 = {(NextPage ?? book.TOC).MakeShortLink()}
@@ -59,29 +108,23 @@ public class Page
 
 }
 
-public class MutablePage(Book book, string urlName, bool addSuffix = true) 
-    : Page(book, urlName, addSuffix)
-{
-    public string URL { set { url = value; } }
-    public string DisplayName { set { defaultDisplayName = value; } }
-    public string ShortName { set { defaultShortName = value; } }
-    public string TOCListMarkers { set { tocListMarkers = value; } }
-    public bool IsCategory { set { isCategory = value; } }
-}
-
+/// <summary>
+/// A kind of page that tracks entries and produces a table of contents in its
+/// template file.
+/// </summary>
 public class TableOfContents : Page
 {
     public Page Category { get; protected set; }
-    private List<string> tocText;
+    private List<IContentsEntry> entries;
 
-    public TableOfContents(Book book, string urlName) : base(book, urlName, false)
+    public TableOfContents(Book book, string urlName) : base(book, urlName)
     {
-        defaultShortName = "Contents";
-        defaultDisplayName = "Table of Contents";
-        tocListMarkers = string.Empty;
-        isCategory = true;
+        ShortName = "Contents";
+        DisplayName = "Table of Contents";
+        TOCListMarkers = string.Empty;
+        IsCategory = true;
         Category = this;
-        tocText = new();
+        entries = new();
     }
 
     /// <summary>
@@ -91,28 +134,28 @@ public class TableOfContents : Page
     /// <param name="cat">the category that the pages of the book belong to</param>
     public void MakePageOfCategory(string cat)
     {
-        isCategory = false;
-        Category = new MutablePage(book, cat, false) { IsCategory = true };
+        IsCategory = false;
+        Category = new Page(Book, cat) { IsCategory = true };
     }
 
-    public override string FileName => isCategory ? "__toc.wikitext" : base.FileName;
+    public override string FileName => IsCategory ? "__toc.wikitext" : base.FileName;
 
     public override string GeneratePageTemplate() 
     {
         StringBuilder sb = new();
-        sb.AppendLine($"; Title: {book.Title ?? "Unknown!"}");
-        sb.AppendLine($"; Author: {book.Author ?? "Unknown!"}");
-        sb.AppendLine($"; Date: {book.Date ?? "Unknown!"}");
+        sb.AppendLine($"; Title: {Book.Title ?? "Unknown!"}");
+        sb.AppendLine($"; Author: {Book.Author ?? "Unknown!"}");
+        sb.AppendLine($"; Date: {Book.Date ?? "Unknown!"}");
         sb.AppendLine();
-        sb.AppendLine($"[[File:{book.ShortTitle ?? "UNKNOWN BOOK"} CoverImage.jpg|thumb|Cover Image]]".Replace(' ','_'));
+        sb.AppendLine($"[[File:{Book.ShortTitle ?? "UNKNOWN BOOK"} CoverImage.jpg|thumb|Cover Image]]".Replace(' ','_'));
         sb.AppendLine("== Contents ==");
-        foreach(string s in tocText) sb.AppendLine(s);
+        foreach(var e in entries) sb.AppendLine(e.MakeTOCListEntry());
         sb.AppendLine();
-        sb.AppendLine(isCategory ? "[[Category:WikiBooks]]" : Category.MakeCategoryMarker());
+        sb.AppendLine(IsCategory ? "[[Category:WikiBooks]]" : Category.MakeCategoryMarker());
         return sb.ToString();
     }
 
-    public void AddTOCText(string line) => tocText.Add(line);
+    internal void AddEntry(IContentsEntry e) => entries.Add(e); 
 }
 
 /// <summary>
@@ -120,26 +163,64 @@ public class TableOfContents : Page
 /// </summary>
 public class Book
 {
+    private static readonly string UNK = "Unknown!";
+
+    protected string? _title;
+    protected string? _navTitle;
+    protected string? _shortTitle;
+    protected string? _date;
+    protected string? _author;
     private readonly List<Page> pages;
     private readonly HashSet<String> uniqueURLs;
-    public string? Title { get; set; }
-    public string? Date { get; set; }
-    public string? NavTitle { get; set; }
-    public string? ShortTitle { get; set; }
-    public string? Author { get; set; }
+    public virtual string Title
+    { 
+        get => _title ?? UNK;
+        set
+        {
+            _title = value;
+        }
+    }
+
+    public virtual string Date 
+    { 
+        get => _date ?? UNK;
+        set
+        {
+            _date = value;
+        }
+    }
+
+    public virtual string NavTitle 
+    {
+        get => _navTitle ?? _title ?? UNK;
+        set
+        {
+            _navTitle = value;
+        }
+    }
+
+    public string ShortTitle
+    {
+        get => _shortTitle ?? _title ?? UNK;
+        set
+        {
+            _shortTitle = value;
+        }
+    }
+    public string Author
+     { 
+        get => _author ?? UNK;
+        set
+        {
+            _author = value;
+        }
+    }
+
     public string NavPage { get; set; }
 
     public TableOfContents TOC { get; }
 
-    public string BookCategoryMark { get => TOC.Category.MakeCategoryMarker(); }
-
-    public virtual string? PageSuffix { 
-        get
-        {
-            string? s = ShortTitle ?? Title;
-            return string.IsNullOrEmpty(s) ? null : $" ({s})";
-        }
-    }
+    public string BookCategoryMark => TOC.Category.MakeCategoryMarker();
 
     public void AddPage(Page p)
     {
@@ -149,10 +230,10 @@ public class Book
         if(lastp != null) lastp.NextPage = p;
         p.PreviousPage = lastp;
         pages.Add(p);
-        TOC.AddTOCText(p.MakeTOCListLink());
+        TOC.AddEntry(p);
     }
 
-    public void AddRawText(string text) => TOC.AddTOCText(text);
+    public void AddRawText(string text) => TOC.AddEntry(new ContentsRawText(text));
 
     public Book(string bookUrl)
     {
