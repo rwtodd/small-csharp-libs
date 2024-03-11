@@ -6,6 +6,8 @@ function New-WikiBook {
         [string]$URL,        
         [Parameter(Mandatory,ParameterSetName="Raw")]
         [string]$Title,
+        [Parameter(Mandatory,ParameterSetName="Raw")]
+        [string]$TocCategory,
         [Parameter(ParameterSetName="Raw")]
         [string]$Author,
         [Parameter(ParameterSetName="Raw")]
@@ -13,20 +15,20 @@ function New-WikiBook {
         [Parameter(ParameterSetName="Raw")]
         [string]$ShortTitle,
         [Parameter(ParameterSetName="Raw")]
-        [string]$NavPage,
+        [string]$NavTemplate,
         [Parameter(ParameterSetName="Raw")]
         [string]$Date,
         [Parameter(Mandatory, ParameterSetName="XML")]
         [string]$FromXML
     )
     if($PSCmdlet.ParameterSetName -eq 'Raw') {
-        $wb = [RWTodd.WikiBook.Book]::New($URL)
+        $wb = [RWTodd.WikiBook.Book]::New($URL,$TocCategory)
         $wb.Title = $Title
         if ($Author) { $wb.Author = $Author }
         if ($Date) { $wb.Date = $Date }
         if ($NavTitle) { $wb.NavTitle = $NavTitle }
         if ($ShortTile) { $wb.ShortTitle = $ShortTile }
-        if ($NavPage) { $wb.NavPage = $NavPage }
+        if ($NavTemplate) { $wb.NavTemplate = $NavTemplate }
         $wb | Add-Member -MemberType ScriptMethod -Name "NewPage" -Value { 
             param($pgUrl)
             [RWTodd.WikiBook.Page]::new($this, $pgUrl)
