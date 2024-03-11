@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<book category="???" nav="???">
+<book tocCategory="??? WikiBooks">
+  <!-- the table of contents will be a page named via <title> below, in category 'tocCategory'-->
+  <!-- tocCategory will usually end in ' WikiBooks'-->
   <author>???</author>
-  <title nav="???" short="???" url="???">???</title>
+  <title navtitle="???" short="???" url="???">???</title>
   <date>???</date>
-  <chapters>
+  <chapters navtemplate="Generic WikiBook Nav">
+    <!-- each chapter page will be in a category named after <title> and use a navigation template named by 'navtemplate' -->
     <raw>???</raw>
     <c short="???" url="???">???</c>
   </chapters>

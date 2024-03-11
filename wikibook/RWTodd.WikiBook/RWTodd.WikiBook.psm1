@@ -43,18 +43,16 @@ function New-WikiBook {
             return $null
         }
         [System.Xml.XmlElement]$root = $x.DocumentElement
+        $tocCat = $root.GetAttribute('tocCategory')
         $booktitle = $root['title']
         $bookurl = $booktitle.GetAttribute('url') ? $booktitle.GetAttribute('url') : $booktitle.InnerText
-        Write-Verbose "Book URL is: <$bookurl>"
-        $wb = [RWTodd.WikiBook.Book]::New($bookurl)
-        # now, set as many properties as we can...
-        $tmp = $root.GetAttribute('category')
-        if($tmp) { $wb.TOC.MakePageOfCategory($tmp) }
+        Write-Verbose "Book URL is: <$bookurl> in category <$tocCat>"
+        $wb = [RWTodd.WikiBook.Book]::New($bookurl,$tocCat)
 
         $wb.Title = $bookTitle.InnerText
         $tmp = $booktitle.GetAttribute('short') 
         if($tmp) { $wb.ShortTitle = $tmp }
-        $tmp = $booktitle.GetAttribute('nav')
+        $tmp = $booktitle.GetAttribute('navtitle')
         if($tmp) { $wb.NavTitle = $tmp }
 
         $tmp = $root['date'].InnerText
@@ -63,10 +61,10 @@ function New-WikiBook {
         $tmp = $root['author'].InnerText
         if($tmp) { $wb.Author = $tmp }
         
-        $tmp = $root.GetAttribute('nav')
-        if($tmp) { $wb.NavPage = $tmp }
-
         $chaps = $root['chapters']
+        $tmp = $chaps.GetAttribute('navtemplate')
+        if($tmp) { $wb.NavTemplate = $tmp }
+
         foreach($chap in $chaps.ChildNodes) {
             if($chap.Name -eq 'raw') {
                 Write-Verbose "Adding raw text <$($chap.InnerText)>"
@@ -100,6 +98,8 @@ function New-WikiBook {
                 if($pgListMarks) { $pg.TOCListMarkers = $pgListMarks }
 
                 $wb.AddPage($pg)
+            } elseif($chap.Name -eq '#comment') {
+                # skip!
             } else {
                 Write-Error "Unknown chapter node $($chap.Name)! Skipping..."
             }

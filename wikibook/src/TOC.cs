@@ -96,7 +96,7 @@ public class Page(Book book, string url) : IContentsEntry
     }
 
     public virtual string GeneratePageTemplate() =>
-        $@"{{{{{book.NavPage}
+        $@"{{{{{book.NavTemplate}
 |1 = {book.NavTitle}
 |2 = {book.TOC.MakeLink()}
 |3 = {(PreviousPage ?? book.TOC).MakeShortLink()}
@@ -114,31 +114,17 @@ public class Page(Book book, string url) : IContentsEntry
 /// </summary>
 public class TableOfContents : Page
 {
-    public Page Category { get; protected set; }
+    public Page ParentCategory { get; protected set; }
     private List<IContentsEntry> entries;
 
-    public TableOfContents(Book book, string urlName) : base(book, urlName)
+    public TableOfContents(Book book, string urlName, string parentCat) : base(book, urlName)
     {
         ShortName = "Contents";
         DisplayName = "Table of Contents";
         TOCListMarkers = string.Empty;
-        IsCategory = true;
-        Category = this;
+        ParentCategory = new Page(book, parentCat) { IsCategory = true };
         entries = new();
     }
-
-    /// <summary>
-    /// Some small books may not have their own category, but rather
-    /// be pages of some other category.  That includes the TOC page!
-    /// </summary>
-    /// <param name="cat">the category that the pages of the book belong to</param>
-    public void MakePageOfCategory(string cat)
-    {
-        IsCategory = false;
-        Category = new Page(Book, cat) { IsCategory = true };
-    }
-
-    public override string FileName => IsCategory ? "__toc.wikitext" : base.FileName;
 
     public override string GeneratePageTemplate() 
     {
@@ -151,7 +137,7 @@ public class TableOfContents : Page
         sb.AppendLine("== Contents ==");
         foreach(var e in entries) sb.AppendLine(e.MakeTOCListEntry());
         sb.AppendLine();
-        sb.AppendLine(IsCategory ? "[[Category:WikiBooks]]" : Category.MakeCategoryMarker());
+        sb.AppendLine(ParentCategory.MakeCategoryMarker());
         return sb.ToString();
     }
 
@@ -216,11 +202,11 @@ public class Book
         }
     }
 
-    public string NavPage { get; set; }
+    public string NavTemplate { get; set; }
 
     public TableOfContents TOC { get; }
 
-    public string BookCategoryMark => TOC.Category.MakeCategoryMarker();
+    public string BookCategoryMark { get; set; }
 
     public void AddPage(Page p)
     {
@@ -235,10 +221,11 @@ public class Book
 
     public void AddRawText(string text) => TOC.AddEntry(new ContentsRawText(text));
 
-    public Book(string bookUrl)
+    public Book(string bookUrl, string tocCat)
     {
-        TOC = new(this, bookUrl);
-        NavPage = "Generic WikiBook Nav";
+        TOC = new(this, bookUrl, tocCat);
+        BookCategoryMark = (new Page(this, bookUrl) { IsCategory = true }).MakeCategoryMarker();
+        NavTemplate = "Generic WikiBook Nav";
         pages = new();
         uniqueURLs = new();
     }
