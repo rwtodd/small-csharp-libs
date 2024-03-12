@@ -145,7 +145,7 @@ public class TableOfContents : Page
 }
 
 /// <summary>
-/// The WikiBook Table of Contents
+/// The WikiBook, which can contain pages and a table of contents.
 /// </summary>
 public class Book
 {
