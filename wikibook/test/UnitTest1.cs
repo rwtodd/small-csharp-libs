@@ -17,8 +17,9 @@ public class UnitTest1
         Assert.Equal(p2, p1.NextPage);
         Assert.Same(p2,p1.NextPage); 
         Assert.Same(p1,p2.PreviousPage);
-        Assert.Equal("[[First Chapter, The (Furthest Places)|First Chap.]]", p1.MakeShortLink());      
-        Assert.Equal("[[Second Chapter, The (Furthest Places)|The Second Chapter]]", p2.MakeLink());
+        Assert.Equal("[[First Chapter, The (Furthest Places)|First Chap.]]", p1.MakeShortLink());
+        Assert.Equal("[[Second Chapter, The (Furthest Places)]]", p2.MakeLink());
+        Assert.Equal("[[Second Chapter, The (Furthest Places)|The Second Chapter]]", p2.MakeDisplayLink());
         Assert.Equal("* [[Second Chapter, The (Furthest Places)|The Second Chapter]]", p2.MakeTOCListEntry());
         Assert.Equal("[[Category:Furthest Places, The (M. Rosas)]]", b.BookCategoryMark);
         Assert.Equal("[[Category:Love Novels]]", b.TOC.ParentCategory.MakeCategoryMarker());

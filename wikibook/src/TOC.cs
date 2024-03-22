@@ -73,20 +73,23 @@ public class Page(Book book, string url) : IContentsEntry
     
     public virtual string FileName => $"{URL}.wikitext".Replace(' ', '_');
 
+    /// <summary>
+    /// Make a WikiText link to the page.
+    /// </summary>
+    /// <param name="text">If `null` then there is no text (mediawiki will use the url text).</param>
+    /// <returns></returns>
     public virtual string MakeLink(string? text = null)
     {
-        string linktxt = text ?? DisplayName;
         string cat = IsCategory ? ":Category:" : string.Empty;
         var start = $"[[{cat}{url}";
-        return start + ((string.IsNullOrWhiteSpace(linktxt)) ? "]]" : $"|{linktxt}]]");
+        return start + ((string.IsNullOrWhiteSpace(text)) ? "]]" : $"|{text}]]");
     }
 
     public virtual string MakeTOCListEntry() =>
-        $"{TOCListMarkers}{MakeLink()}";
+        $"{TOCListMarkers}{MakeDisplayLink()}";
     
-    public virtual string MakeShortLink() =>
-        MakeLink(ShortName);
-
+    public virtual string MakeShortLink() => MakeLink(ShortName);
+    public virtual string MakeDisplayLink() => MakeLink(DisplayName);
 
     public virtual string MakeCategoryMarker()
     {
@@ -98,12 +101,12 @@ public class Page(Book book, string url) : IContentsEntry
     public virtual string GeneratePageTemplate() =>
         $@"{{{{{book.NavTemplate}
 |1 = {book.NavTitle}
-|2 = {book.TOC.MakeLink()}
+|2 = {book.TOC.MakeDisplayLink()}
 |3 = {(PreviousPage ?? book.TOC).MakeShortLink()}
 |4 = {(NextPage ?? book.TOC).MakeShortLink()}
 }}}}
 
-&rarr; {(NextPage ?? book.TOC).MakeLink()} &rarr;
+&rarr; {(NextPage ?? book.TOC).MakeDisplayLink()} &rarr;
 {book.BookCategoryMark}";
 
 }
